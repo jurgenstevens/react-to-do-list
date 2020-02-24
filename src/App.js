@@ -36,7 +36,9 @@ class App extends Component {
 
   // Delete the Todo
   delTodo = (id) => {
-    console.log(id)
+    // this will return everything in the state with the spread operator
+    // and then filter out the id that was clicked on
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
   }
 
 
