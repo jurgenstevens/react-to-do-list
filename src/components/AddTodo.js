@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export class AddTodo extends Component {
+class AddTodo extends Component {
 
     state = {
         title: ''
@@ -8,7 +8,7 @@ export class AddTodo extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.AddTodo(this.state.title);
+        this.props.addTodo(this.state.title);
         this.setState({ title: '' });
     }
 
