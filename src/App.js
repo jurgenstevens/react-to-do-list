@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import Header from './components/layout/Header';
 import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
 
 class App extends Component {
   state={
@@ -37,16 +39,24 @@ class App extends Component {
   // Delete the Todo
   delTodo = (id) => {
     // this will return everything in the state with the spread operator
-    // and then filter out the id that was clicked on
+    // and then filter out the id that was clicked on to be deleted
     this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
   }
 
+  // Add Todo
+  addTodo = (title) => {
+    console.log(title)
+  }
 
   render() {
     return (
       <div className="App">
-        <Todos todos={this.state.todos} markComplete={this.markComplete} 
-        delTodo={this.delTodo}/>
+        <div className="container">
+          <Header />
+          <Todos todos={this.state.todos} markComplete={this.markComplete} 
+          delTodo={this.delTodo} />
+          <AddTodo addTodo={this.addTodo} />
+        </div>
       </div>
     );
   }
