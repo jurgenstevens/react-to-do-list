@@ -22,10 +22,16 @@ class App extends Component {
     ]
   }
 
+  // since using destructuring in TodoItem.js, we can now grab the id from whatever is checked
+  markComplete = (id) => {
+    console.log(id)
+  }
+
+
   render() {
     return (
       <div className="App">
-        <Todos todos={this.state.todos} />
+        <Todos todos={this.state.todos} markComplete={this.markComplete} />
       </div>
     );
   }
