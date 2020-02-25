@@ -8,7 +8,9 @@ class AddTodo extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        // this will update the state
         this.props.addTodo(this.state.title);
+        // then this will clear the field
         this.setState({ title: '' });
     }
 
