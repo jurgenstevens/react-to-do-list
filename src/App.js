@@ -64,8 +64,9 @@ class App extends Component {
             <Header />
             <Route exact path='/' render={props => (
               <React.Fragment>
-                <Todos todos={this.state.todos} markComplete={this.markComplete} 
-                delTodo={this.delTodo} />
+                <Todos todos={this.state.todos} 
+                       markComplete={this.markComplete} 
+                       delTodo={this.delTodo} />
                 <AddTodo addTodo={this.addTodo} />
               </React.Fragment>
             )} />
