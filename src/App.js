@@ -4,28 +4,20 @@ import Header from './components/layout/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import About from './components/pages/About';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 
 class App extends Component {
   state={
-    todos: [
-      {
-        id: uuid(),
-        title: 'Take out the gahhhbage',
-        completed: false 
-      },
-      {
-        id: uuid(),
-        title: 'Dinner with Dzenita',
-        completed: false
-      },
-      {
-        id: uuid(),
-        title: 'Meeting with Chels',
-        completed: false
-      }
-    ]
+    todos: []
   }
+
+  // this will run after the component mounts and set the third party API json in the state
+  componentDidMount(){
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+      .then(res => this.setState({ todos: res.data}))
+  }
+
 
   // since using destructuring in TodoItem.js, we can now grab the id from whatever is checked
   markComplete = (id) => {
@@ -41,19 +33,21 @@ class App extends Component {
 
   // Delete the Todo
   delTodo = (id) => {
-    // this will return everything in the state with the spread operator
-    // and then filter out the id that was clicked on to be deleted
-    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] })
+    // this will make a delete request
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.setState({ todos: [...this.state.todos.filter
+      (todo => todo.id !== id)] }));
   }
 
   // Add Todo
   addTodo = (title) => {
-    const newTodo = {
-      id: uuid(),
+    //this will make the post request
+    axios.post('https://jsonplaceholder.typicode.com/todos', {
       title,
       completed: false
-    }
-    this.setState({ todos: [...this.state.todos, newTodo] });
+    })
+      .then(res => this.setState({ todos: 
+      [...this.state.todos, res.data] }));
   }
 
   render() {
@@ -64,10 +58,10 @@ class App extends Component {
             <Header />
             <Route exact path='/' render={props => (
               <React.Fragment>
+                <AddTodo addTodo={this.addTodo} />
                 <Todos todos={this.state.todos} 
                        markComplete={this.markComplete} 
                        delTodo={this.delTodo} />
-                <AddTodo addTodo={this.addTodo} />
               </React.Fragment>
             )} />
             <Route path='/about' component={About} />

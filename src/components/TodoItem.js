@@ -32,7 +32,9 @@ class TodoItem extends Component {
 // PropTypes
 // whatever the name of the class is, then propTypes
 TodoItem.propTypes = {
-    todo: PropTypes.object.isRequired
+    todo: PropTypes.object.isRequired,
+    markComplete: PropTypes.func.isRequired,
+    delTodo: PropTypes.func.isRequired
 }
 
 // this is the style for the x button all the way to the right
